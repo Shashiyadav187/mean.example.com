@@ -30,6 +30,11 @@ var User = new Schema({
   }
 });
 
+User.pre('save', function(next){
+  this.modified = new Date().toISOString();
+  next();
+});
+
 User.plugin(uniqueValidator);
 
 module.exports  = mongoose.model('User', User);
