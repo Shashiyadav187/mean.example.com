@@ -99,4 +99,19 @@ router.put('/', function(req, res){
   });
 });
 
+//Delete a single user
+router.delete('/:userId', function(req,res){
+
+  var userId = req.params.userId;
+
+  User.remove({'_id':userId}, function(err,removed){
+    if(err){
+      return res.json({success: false, error: err});
+    }
+
+    return res.json({success: true, status: removed});
+
+  });
+});
+
 module.exports = router;
