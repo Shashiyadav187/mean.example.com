@@ -26,12 +26,13 @@ var Article = new Schema({
     default: Date.now
   },
   published: {
-    type: Date,
-    required: [true, 'Please enter a pub date'],
+    type: Date
+    //required: [true, 'Please enter a pub date'],
   }
 });
 
-//Auto set the modified date on save
+
+//Auto set the modified date prior to save
 Article.pre('save', function(next){
   this.modified = new Date().toISOString();
   next();
