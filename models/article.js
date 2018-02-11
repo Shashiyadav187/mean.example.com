@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema,
-  uniqueValidator = require('mongoose-unique-validator');
+  uniqueValidator = require('mongoose-unique-validator'),
+  slug = require('slug');
 
 //Create a schema
 var Article = new Schema({
@@ -31,6 +32,11 @@ var Article = new Schema({
   }
 });
 
+//Auto set the slug prior to validation
+Article.pre('validate', function(next){
+  this.slug = slug(this.title).toLowerCase();
+  next();
+});
 
 //Auto set the modified date prior to save
 Article.pre('save', function(next){
